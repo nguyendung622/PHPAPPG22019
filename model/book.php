@@ -40,7 +40,7 @@ class Book
         array_push($listBook, new Book(3, "OOP in Java", 10, "ntrung", 2018));
         array_push($listBook, new Book(4, "OOP in Python", 20, "nlan", 2019));
         array_push($listBook, new Book(5, "OOP in Ruby on Rails", 30, "thomas", 2019));
-
+        //dfdfdf
         return $listBook;
     }
     /**
@@ -58,5 +58,26 @@ class Book
             }
         };
         return $lsBook;
+    }
+    static function getListCuaQuy($search = null)
+    {
+        $data = file("data/book.txt");
+        $arrBook = [];
+        foreach ($data as $key => $value) {
+            $row = explode("#", $value);
+            if (
+                strlen(strstr($row[0], $search)) || strlen(strstr($row[3], $search)) ||
+                strlen(strstr($row[1], $search)) || strlen(strstr($row[4], $search)) ||
+                strlen(strstr($row[2], $search)) || $search == null
+            )
+                $arrBook[] = new Book($row[0], $row[2], $row[1], $row[3], $row[4]);
+        }
+        return $arrBook;
+    }
+    static function addToFile($content)
+    {
+        $myfile = fopen("data/book.txt", "a") or die("Unable to open file!");
+        fwrite($myfile, "\n" . $content);
+        fclose($myfile);
     }
 }
