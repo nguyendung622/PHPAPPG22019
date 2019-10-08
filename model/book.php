@@ -80,4 +80,21 @@ class Book
         fwrite($myfile, "\n" . $content);
         fclose($myfile);
     }
+    static function delete($id)
+    {
+        $data = Book::getList();
+        $data_res = [];
+        foreach ($data as $key => $value) {
+            if ($value->id != $id) {
+                $data_res[] = $value;
+            }
+        }
+        $text_write = "";
+        $myfile = fopen("data/book.txt", "w") or die("Unable to open file!");
+        foreach ($data_res as $key => $value) {
+            $text_write .= $value->id . "#" . $value->title . "#" . $value->price . "#" . $value->author . "#" . $value->year . "\n";
+        }
+        fwrite($myfile, $text_write);
+        fclose($myfile);
+    }
 }

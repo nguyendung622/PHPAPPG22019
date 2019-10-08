@@ -14,6 +14,9 @@ if (isset($_REQUEST["addBook"])) {
     Book::addToFile($content);
     //echo "<meta http-equiv='refresh' content='0'>";
 }
+if ($_REQUEST['action'] == 'delete') {
+    Book::delete($_REQUEST['id']);
+}
 $ls = Book::getList();
 $keyWord = null;
 $keyWord = $_REQUEST['search'];
@@ -49,8 +52,53 @@ $lsFromFile = Book::getListCuaQuy($keyWord);
                     <td><?php echo $value->author ?></td>
                     <td><?php echo $value->year ?></td>
                     <td>
-                        <button class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Edit</button>
-                        <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <div class="modal" id="form-edit">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">form edit with id: <?php echo $value->id ?></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <form action="" method="POST">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="action" value="edit">
+                                            <input type="hidden" name="id" value="<?php echo $value->id ?>">
+                                            <div class="form-group">
+                                                <label>title</label>
+                                                <input class="form-control" type="text" value="<?php echo $value->title ?>" name="title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>price</label>
+                                                <input class="form-control" type="number" value="<?php echo $value->price ?>" name="price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>author</label>
+                                                <input class="form-control" type="text" value="<?php echo $value->author ?>" name="author">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>year</label>
+                                                <input class="form-control" type="text" value="<?php echo $value->year ?>" name="year">
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">submit</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-warning" data-toggle="modal" data-target="#form-edit"><i class="fas fa-pencil-alt"></i> Edit</button>
+                        <form action="" style=" display: inline-block;" method="POST">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="<?php echo $value->id ?>">
+                            <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </form>
                     </td>
                 </tr>
             <?php
