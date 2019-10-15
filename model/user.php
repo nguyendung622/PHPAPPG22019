@@ -19,6 +19,7 @@ class User
      */
     static function authentication($userName, $passWord)
     {
+        sleep(10);
         if ($userName == "nguyendung622@gmail.com" && $passWord == "123")
             return new User($userName, $passWord, "Zũng Nguyễn");
         else return null;

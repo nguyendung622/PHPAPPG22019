@@ -89,6 +89,11 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Bài số 4</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="baiso5.php">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Bài số 5</span></a>
+        </li>
     </ul>
     <div id="content-wrapper">
 
